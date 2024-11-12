@@ -1,9 +1,20 @@
+// src/app/page.tsx
 import Image from "next/image";
+import useAuth from "../hooks/useAuth"; // useAuth 훅을 임포트
 
 export default function Home() {
+  const user = useAuth(); // 현재 로그인 상태 확인
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        {user ? (
+          // 로그인된 사용자가 있을 경우
+          <h1>Welcome, {user.displayName || "User"}!</h1> // 사용자 이름 표시
+        ) : (
+          // 로그인하지 않은 경우
+          <h1>Please log in to access the content</h1>
+        )}
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -99,3 +110,4 @@ export default function Home() {
     </div>
   );
 }
+
